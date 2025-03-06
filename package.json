@@ -8,13 +8,22 @@
   "main": "index.js",
   "scripts": {
     "build:dev": "NODE_OPTIONS=\"--loader ts-node/esm\" npx webpack build -c ./config/webpack/webpack.config.ts --node-env development",
-    "clean": "rm -fR dist/dev && rm -fR dist/prod && rm -fR dist/test"
+    "start:dev": "node dist/development/server/main.js",
+    "clean": "rm -fR dist/development && rm -fR dist/production && rm -fR dist/test"
   },
   "devDependencies": {
+    "@babel/core": "^7.26.9",
+    "@babel/preset-env": "^7.26.9",
+    "@babel/preset-typescript": "^7.26.0",
     "@types/node": "^22.13.9",
+    "@types/webpack-node-externals": "^3.0.4",
+    "babel-loader": "^10.0.0",
+    "fs-extra": "^11.3.0",
     "ts-loader": "^9.5.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.2",
-    "webpack-cli": "^6.0.1"
+    "webpack": "^5.98.0",
+    "webpack-cli": "^6.0.1",
+    "webpack-node-externals": "^3.0.0"
   }
 }

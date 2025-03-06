@@ -7,10 +7,21 @@ import { fileURLToPath } from 'url';
 const workDirPath = path.dirname(fileURLToPath(import.meta.url));
 const distPath = path.resolve(workDirPath, '..', '..', 'dist');
 
+function createDefinitions(name: string, buildType: BuildType) {
+  const componentMacro = `__COMPONENT_${name.toUpperCase()}__`;
+  const definitions = {
+        __DEVELOPMENT__: buildType === 'development',
+        __TEST__: buildType === 'test',
+        __PRODUCTION__: buildType === 'production',
+        [componentMacro]: true,
+      };
+
+  return new webpack.DefinePlugin(definitions);
+}
+
 export default function createBackendConfig(name: string, entry: PathLike, buildType: BuildType) : Configuration {
   const output = path.resolve(distPath, buildType as string, name);
   const mode = buildType === 'development' ? 'development' : 'production';
-  const componentMacro = `__COMPONENT_${name.toUpperCase()}__`;
 
   return {
     mode,
@@ -46,12 +57,7 @@ export default function createBackendConfig(name: string, entry: PathLike, build
       topLevelAwait: true,
     },
     plugins: [
-      new webpack.DefinePlugin({
-        __DEVELOPMENT__: buildType === 'development',
-        __TEST__: buildType === 'test',
-        __PRODUCTION__: buildType === 'production',
-        [componentMacro]: true,
-      }),
+      createDefinitions(name, buildType)
     ],
   };
 }

@@ -8,5 +8,17 @@ import createBackendConfig from './backend.js';
 
 const buildType = process.env.NODE_ENV as BuildType;
 
-export default createBackendConfig('auth_server', './src/backend/index.ts', buildType);
+const entry = './src/backend/index.ts'; 
+const configurations : Configuration[] = [];
+
+if ( buildType === 'production' ) {
+  const releaseComponents = [ 'api_server', 'auth_server', 'frontend_server' ];
+  for ( const component of releaseComponents ) {
+    configurations.push(createBackendConfig(component, entry, buildType));
+  }
+} else {
+  configurations.push(createBackendConfig('server', entry, buildType));
+}
+
+export default configurations;
 

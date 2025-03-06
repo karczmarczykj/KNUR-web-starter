@@ -8,6 +8,7 @@
   "main": "index.js",
   "scripts": {
     "build:dev": "NODE_OPTIONS=\"--loader ts-node/esm\" npx webpack build -c ./config/webpack/webpack.config.ts --node-env development",
+    "build:prod": "NODE_OPTIONS=\"--loader ts-node/esm\" npx webpack build -c ./config/webpack/webpack.config.ts --node-env production",
     "start:dev": "node dist/development/server/main.js",
     "clean": "rm -fR dist/development && rm -fR dist/production && rm -fR dist/test"
   },

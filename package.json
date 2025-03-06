@@ -1,0 +1,20 @@
+{
+  "name": "platform-boilerplate",
+  "version": "1.0.0",
+  "description": "Boilerplate for modern web applications",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "build:dev": "NODE_OPTIONS=\"--loader ts-node/esm\" npx webpack build -c ./config/webpack/webpack.config.ts --node-env development",
+    "clean": "rm -fR dist/dev && rm -fR dist/prod && rm -fR dist/test"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.9",
+    "ts-loader": "^9.5.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2",
+    "webpack-cli": "^6.0.1"
+  }
+}

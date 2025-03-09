@@ -1,6 +1,8 @@
+import { BuildType } from './build-types.js';
+import getBackendAliases from './backend-aliases.js';
+
 import { PathLike } from 'fs';
 import webpack, { Configuration } from 'webpack';
-import { BuildType } from './build-types.js';
 import nodeExternals from 'webpack-node-externals';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -34,6 +36,7 @@ export default function createBackendConfig(name: string, entry: PathLike, build
     },
     resolve: {
       extensions: ['.ts', '.js'],
+      alias: getBackendAliases(path.resolve(workDirPath, '..', '..')),
     },
     module: {
       rules: [

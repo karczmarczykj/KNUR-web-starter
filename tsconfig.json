@@ -5,7 +5,16 @@
     "target": "ESNext",
     "esModuleInterop": true,
     "strict": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@config/*": ["src/backend/config/*"],
+      "@config": ["src/backend/config/index"],
+      "@logger": ["src/backend/logger/index"],
+      "@logger/*": ["src/backend/logger/*"],
+      "@config-runtime/*": ["src/backend/config/runtime/*"],
+      "@config-runtime": ["src/backend/config/runtime/index"],
+      "@webpack-config/*": ["src/backend/config/webpack/*"]
+    }
   }
 }
-

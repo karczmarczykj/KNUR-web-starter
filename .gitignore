@@ -1,5 +1,7 @@
 .git
 node_modules
 commit-changes.txt
-dist
+dist/development
+dist/production
+dist/test
 coverage

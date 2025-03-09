@@ -1,18 +1,15 @@
-import { __DEVELOPMENT__, __PRODUCTION__, __TEST__, __COMPONENT_SERVER__, __COMPONENT_AUTH_SERVER__ } from "./defined-globals";
+import { printGlobals } from "./defined-globals";
+import logger from "@logger";
+import config from "@config-runtime";
+import chalk from "chalk";
 
-if (__DEVELOPMENT__) {
-  console.log("Development mode");
-} else if (__PRODUCTION__) {
-  console.log("Production mode");
-} else if (__TEST__) {
-  console.log("Test mode");
+if (!config) {
+  logger.error('Configuration cannot be initialized, exiting...');
+  process.exit(1);
 }
 
-if (__COMPONENT_SERVER__) {
-  console.log("Server component");
-}
+printGlobals();
 
-if (__COMPONENT_AUTH_SERVER__) {
-  console.log("Auth server component");
-}
+logger.info(chalk.yellow('🚀 Server is starting...'));
+logger.info(chalk.greenBright(`Server configuration: \n${JSON.stringify(config.runtime.getProperties(), null, 2)}`));
 

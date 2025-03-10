@@ -1,5 +1,5 @@
 import { BuildType } from './build-types.js';
-import getBackendAliases from './backend-aliases.js';
+import fs from 'fs';
 
 import { PathLike } from 'fs';
 import webpack, { Configuration } from 'webpack';
@@ -28,6 +28,19 @@ export default function createBackendConfig(
 ): Configuration {
   const output = path.resolve(distPath, buildType as string, name);
   const mode = buildType === 'development' ? 'development' : 'production';
+  const backendAliasesFile = path.resolve(workDirPath, './backend-aliases.json');
+  let aliases : { [name : string]: string} = {};
+
+  if (fs.existsSync(backendAliasesFile)) {
+    aliases = JSON.parse(fs.readFileSync(backendAliasesFile, "utf8"));
+    for (const key in aliases) {
+      aliases[key] = path.resolve(workDirPath, '..', '..', aliases[key]);
+    }
+
+  } else {
+    console.error(`Aliases file not found: ${backendAliasesFile}`);
+    process.exit(1);
+  }
 
   return {
     mode,
@@ -40,7 +53,7 @@ export default function createBackendConfig(
     },
     resolve: {
       extensions: ['.ts', '.js'],
-      alias: getBackendAliases(path.resolve(workDirPath, '..', '..')),
+      alias: aliases,
     },
     module: {
       rules: [

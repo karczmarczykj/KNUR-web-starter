@@ -1,12 +1,14 @@
-import pino from 'pino';
-import staticConfig from '@config';
+import pino, { Logger } from 'pino';
+import { staticConfig } from '@config';
 
-const logger = pino(staticConfig.pinoOptions);
+export const logger: Logger = pino(staticConfig.pinoOptions) as Logger;
 
-export function destroy(done: () => void) {
-  logger.flush();
-  done();
+export type { Logger };
+
+export function destroy(done: () => void): void {
+  if (logger.flush) {
+    logger.flush(done);
+  } else {
+    done();
+  }
 }
-
-export default logger;
-

@@ -12,16 +12,20 @@ const distPath = path.resolve(workDirPath, '..', '..', 'dist');
 function createDefinitions(name: string, buildType: BuildType) {
   const componentMacro = `__COMPONENT_${name.toUpperCase()}__`;
   const definitions = {
-        __DEVELOPMENT__: buildType === 'development',
-        __TEST__: buildType === 'test',
-        __PRODUCTION__: buildType === 'production',
-        [componentMacro]: true,
-      };
+    __DEVELOPMENT__: buildType === 'development',
+    __TEST__: buildType === 'test',
+    __PRODUCTION__: buildType === 'production',
+    [componentMacro]: true,
+  };
 
   return new webpack.DefinePlugin(definitions);
 }
 
-export default function createBackendConfig(name: string, entry: PathLike, buildType: BuildType) : Configuration {
+export default function createBackendConfig(
+  name: string,
+  entry: PathLike,
+  buildType: BuildType
+): Configuration {
   const output = path.resolve(distPath, buildType as string, name);
   const mode = buildType === 'development' ? 'development' : 'production';
 
@@ -49,6 +53,8 @@ export default function createBackendConfig(name: string, entry: PathLike, build
               compilerOptions: {
                 module: 'preserve',
                 moduleResolution: 'bundler',
+                noEmit: false,
+                allowImportingTsExtensions: false,
               },
             },
           },
@@ -59,10 +65,6 @@ export default function createBackendConfig(name: string, entry: PathLike, build
     experiments: {
       topLevelAwait: true,
     },
-    plugins: [
-      createDefinitions(name, buildType)
-    ],
+    plugins: [createDefinitions(name, buildType)],
   };
 }
-
-

@@ -1,19 +1,22 @@
-import pino, { LoggerOptions } from "pino";
+import { LoggerOptions } from 'pino';
 
 const pinoOptions: LoggerOptions = {
-  level: "info",
+  level: 'info',
   transport: {
-    target: "pino-pretty",
+    target: 'pino-pretty',
     options: {
       colorize: true,
-      translateTime: "yyyy-mm-dd HH:MM:ss"
+      translateTime: 'yyyy-mm-dd HH:MM:ss',
     },
   },
 };
 
-const staticConfig = {
-  pinoOptions,
-  configFile: "server-config.yaml",
-};
+export interface StaticConfig {
+  pinoOptions: LoggerOptions;
+  configFile: string;
+}
 
-export default staticConfig;
+export const staticConfig: StaticConfig = {
+  pinoOptions,
+  configFile: 'server-config.yaml',
+};

@@ -1,7 +1,7 @@
-import { printGlobals } from "./defined-globals";
-import logger from "@logger";
-import config from "@config-runtime";
-import chalk from "chalk";
+import { printGlobals } from '@backend/defined-globals';
+import { logger } from '@logger';
+import config from '@config-runtime';
+import chalk from 'chalk';
 
 if (!config) {
   logger.error('Configuration cannot be initialized, exiting...');
@@ -11,5 +11,8 @@ if (!config) {
 printGlobals();
 
 logger.info(chalk.yellow('🚀 Server is starting...'));
-logger.info(chalk.greenBright(`Server configuration: \n${JSON.stringify(config.runtime.getProperties(), null, 2)}`));
-
+logger.info(
+  chalk.greenBright(
+    `Server configuration: \n${JSON.stringify(config.runtime.getProperties(), null, 2)}`
+  )
+);

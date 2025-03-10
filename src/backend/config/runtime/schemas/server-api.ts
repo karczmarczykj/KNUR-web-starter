@@ -1,11 +1,8 @@
-import { ServerCommonSchemaType } from "./common";
-import { ServerCommonSchema } from "./common";
+import {
+  ServerCommonSchema,
+  ServerCommonSchemaInterface,
+} from '@config-runtime/schemas/common';
 
-export interface ServerApiSchemaType extends ServerCommonSchemaType {
-}
+export type ServerApiSchemaInterface = ServerCommonSchemaInterface;
 
-const ServerApiSchema: ServerApiSchemaType = {
-  ...ServerCommonSchema,
-};
-
-export default ServerApiSchema;
+export const ServerApiSchema = ServerCommonSchema;

@@ -28,15 +28,17 @@ export default function createBackendConfig(
 ): Configuration {
   const output = path.resolve(distPath, buildType as string, name);
   const mode = buildType === 'development' ? 'development' : 'production';
-  const backendAliasesFile = path.resolve(workDirPath, './backend-aliases.json');
-  let aliases : { [name : string]: string} = {};
+  const backendAliasesFile = path.resolve(
+    workDirPath,
+    './backend-aliases.json'
+  );
+  let aliases: { [name: string]: string } = {};
 
   if (fs.existsSync(backendAliasesFile)) {
-    aliases = JSON.parse(fs.readFileSync(backendAliasesFile, "utf8"));
+    aliases = JSON.parse(fs.readFileSync(backendAliasesFile, 'utf8'));
     for (const key in aliases) {
       aliases[key] = path.resolve(workDirPath, '..', '..', aliases[key]);
     }
-
   } else {
     console.error(`Aliases file not found: ${backendAliasesFile}`);
     process.exit(1);

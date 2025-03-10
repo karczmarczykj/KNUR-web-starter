@@ -3,6 +3,7 @@ import tseslint from '@typescript-eslint/eslint-plugin';
 import tsparser from '@typescript-eslint/parser';
 import prettier from 'eslint-config-prettier';
 import prettierPlugin from 'eslint-plugin-prettier';
+import jest from "eslint-plugin-jest";
 
 export default [
   js.configs.recommended,
@@ -44,6 +45,26 @@ export default [
       ],
       '@typescript-eslint/no-explicit-any': 'error',
       'prettier/prettier': 'error',
+    },
+  },
+  {
+    files: ["**/__tests__/**/*.spec.ts", "**/__tests__/**/*.spec.tsx"],
+    languageOptions: {
+      globals: {
+        describe: true,
+        test: true,
+        expect: true,
+        beforeEach: true,
+        afterEach: true,
+        jest: true,
+      },
+    },
+    plugins: {
+      jest,
+    },
+    rules: {
+      "jest/prefer-strict-equal": "warn",
+      "jest/no-conditional-expect": "warn",
     },
   },
   prettier,

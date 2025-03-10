@@ -10,12 +10,13 @@ _Project is still in development and most of the features are not implemented ye
 
 
 ## Features
+- One server for all components and static content
 - Written in TypeScript from scratch
 - Whole project is linted with ESLint and Prettier
 - Project management scripts (creating snippets, components, pages, etc.)
 - JEST for testing in TypeScript
 - Webpack for bundling and building
-- One server for all components and static content
+- GitHub Workflow actions for CI/CD
 
 ## Getting Started
 1. Clone the repository

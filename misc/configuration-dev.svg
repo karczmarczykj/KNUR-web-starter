@@ -28,8 +28,8 @@
      inkscape:document-units="px"
      inkscape:connector-spacing="0"
      inkscape:zoom="1.1536458"
-     inkscape:cx="364.93002"
-     inkscape:cy="218.00451"
+     inkscape:cx="364.49662"
+     inkscape:cy="218.00452"
      inkscape:window-width="1854"
      inkscape:window-height="1011"
      inkscape:window-x="66"
@@ -266,15 +266,15 @@
          transform="translate(0.17597961,12.013496)"><tspan
            x="168.87304"
            y="107.87891"
-           id="tspan3"><tspan
+           id="tspan4"><tspan
              style="font-family:'Clear Sans';-inkscape-font-specification:'Clear Sans'"
-             id="tspan1">Runtime 
+             id="tspan2">Runtime 
 </tspan></tspan><tspan
            x="152.80957"
            y="128.40234"
-           id="tspan6"><tspan
+           id="tspan18"><tspan
              style="font-family:'Clear Sans';-inkscape-font-specification:'Clear Sans'"
-             id="tspan5">configuration</tspan></tspan></text>
+             id="tspan17">configuration</tspan></tspan></text>
     </g>
     <g
        id="g4"
@@ -308,15 +308,15 @@
          transform="translate(-0.05037689,15.470734)"><tspan
            x="163.39767"
            y="105.96289"
-           id="tspan8"><tspan
+           id="tspan20"><tspan
              style="font-family:'Clear Sans';-inkscape-font-specification:'Clear Sans'"
-             id="tspan7">Build-time
+             id="tspan19">Build-time
 </tspan></tspan><tspan
            x="162.94824"
            y="126.48633"
-           id="tspan10"><tspan
+           id="tspan22"><tspan
              style="font-family:'Clear Sans';-inkscape-font-specification:'Clear Sans'"
-             id="tspan9">definitions</tspan></tspan></text>
+             id="tspan21">definitions</tspan></tspan></text>
     </g>
     <g
        id="g4-8"
@@ -349,15 +349,15 @@
          transform="translate(0.23869705,6.7356073)"><tspan
            x="177.67116"
            y="104.07617"
-           id="tspan11">Static
+           id="tspan23">Static
 </tspan><tspan
            x="151.7334"
            y="124.07617"
-           id="tspan12">(hardcoded)
+           id="tspan24">(hardcoded)
 </tspan><tspan
            x="147.47948"
            y="144.07617"
-           id="tspan13">configuration</tspan></text>
+           id="tspan25">configuration</tspan></text>
     </g>
     <g
        id="g2-7"
@@ -391,7 +391,7 @@
          transform="translate(-0.06328583,24.001778)"><tspan
            x="160.18555"
            y="107.87891"
-           id="tspan14">API server</tspan></text>
+           id="tspan26">API server</tspan></text>
     </g>
     <g
        id="g7"
@@ -425,7 +425,7 @@
          transform="translate(-0.06328583,24.001778)"><tspan
            x="154.0918"
            y="107.87891"
-           id="tspan15">Auth server</tspan></text>
+           id="tspan27">Auth server</tspan></text>
     </g>
     <g
        id="g9"
@@ -459,55 +459,55 @@
          transform="translate(-0.06328583,24.001778)"><tspan
            x="144.66212"
            y="107.87891"
-           id="tspan16">Static content</tspan></text>
+           id="tspan28">Static content</tspan></text>
     </g>
     <path
-       style="display:inline;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#ConcaveTriangle)"
+       style="display:inline;fill:#aca793;fill-rule:evenodd;stroke:#ac9393;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#ConcaveTriangle)"
        d="m 142.15801,247.04289 v 0 c 1e-5,0 1e-5,-1.5 1e-5,-3 V 131.25252"
        id="path15"
        inkscape:connector-type="orthogonal"
        inkscape:connector-curvature="3"
        inkscape:connection-end="#g2" />
     <path
-       style="display:inline;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker17)"
+       style="display:inline;fill:#aca793;fill-rule:evenodd;stroke:#ac9393;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker17)"
        d="M 143.02483,247.04289 318.27586,131.36591"
        id="path16"
        inkscape:connector-type="polyline"
        inkscape:connector-curvature="3"
        inkscape:connection-end="#g4" />
     <path
-       style="display:inline;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker19)"
+       style="display:inline;fill:#aca793;fill-rule:evenodd;stroke:#ac9393;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker19)"
        d="M 143.89165,249.64334 575.56659,134.35666"
        id="path18"
        inkscape:connector-type="polyline"
        inkscape:connector-curvature="3" />
     <path
-       style="display:inline;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker21)"
+       style="display:inline;fill:#aca793;fill-rule:evenodd;stroke:#ac9393;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker21)"
        d="M 374.46501,255.71106 167.29571,130.88939"
        id="path20"
        inkscape:connector-type="polyline"
        inkscape:connector-curvature="3" />
     <path
-       style="display:inline;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker23)"
+       style="display:inline;fill:#aca793;fill-rule:evenodd;stroke:#ac9393;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker23)"
        d="m 382.26637,253.97743 0.5748,-122.61152"
        id="path22"
        inkscape:connector-type="polyline"
        inkscape:connector-curvature="3"
        inkscape:connection-end="#g4" />
     <path
-       style="display:inline;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker25)"
+       style="display:inline;fill:#aca793;fill-rule:evenodd;stroke:#ac9393;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker25)"
        d="M 384,255.71106 598.97065,141.2912"
        id="path24"
        inkscape:connector-type="polyline"
        inkscape:connector-curvature="3" />
     <path
-       style="display:inline;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker27)"
+       style="display:inline;fill:#aca793;fill-rule:evenodd;stroke:#ac9393;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker27)"
        d="M 590.30248,255.71106 432.54176,134.35666"
        id="path26"
        inkscape:connector-type="polyline"
        inkscape:connector-curvature="3" />
     <path
-       style="display:inline;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker29)"
+       style="display:inline;fill:#aca793;fill-rule:evenodd;stroke:#ac9393;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker29)"
        d="M 622.37472,248.77652 621.5079,142.15801"
        id="path28"
        inkscape:connector-type="polyline"

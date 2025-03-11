@@ -1,4 +1,4 @@
-# KNUR Web Platform Starter ![KNUR Logo](misc/logo.svg) 
+# ![KNUR Logo](misc/logo.svg)  KNUR Web Platform Starter 
 
 ## Overview
 KNUR Web Platform Starter is a starter project for web platform development.

@@ -1,8 +1,4 @@
-<p align="center">
-  <img src="misc/logo.svg" alt="KNUR Web Platform Starter" />
-</p>
-
-# KNUR Web Platform Starter
+# KNUR Web Platform Starter ![KNUR Logo](misc/logo.svg) 
 
 ## Overview
 KNUR Web Platform Starter is a starter project for web platform development.

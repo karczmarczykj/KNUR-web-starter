@@ -4,4 +4,5 @@ commit-changes.txt
 dist/development
 dist/production
 dist/test
+dist/certificates
 coverage

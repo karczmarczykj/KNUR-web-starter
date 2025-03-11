@@ -1,2 +1,8 @@
 logger:
   level: info
+ports:
+  http: 2999
+  https: 3000
+ssl:
+  certFile: dist/certificates/certificate.crt
+  keyFile: dist/certificates/private.key

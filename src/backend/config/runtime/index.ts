@@ -13,14 +13,14 @@ import convict_format_with_validator from 'convict-format-with-validator';
 import findFileUp from 'find-file-up';
 import path, { dirname } from 'path';
 
-interface Configuration {
+export interface RuntimeConfiguration {
   runtime: convict.Config<ServerApiSchemaInterface>;
   paths: {
     config: string;
   };
 }
 
-async function loadConfiguration(): Promise<Configuration> {
+async function loadRuntimeConfiguration(): Promise<RuntimeConfiguration> {
   const staticConfigFile: string = staticConfig.configFile;
   logger.info(`Searching configuration file (${staticConfigFile}) ...`);
   convict.addParser({ extension: ['yml', 'yaml'], parse: yaml.load });
@@ -44,21 +44,34 @@ async function loadConfiguration(): Promise<Configuration> {
 
   logger.info(`Reading configuration file: ${configFile}`);
 
-  const runtime = config.loadFile(configFile).validate({ allowed: 'strict' });
+  try {
+    const runtime = config.loadFile(configFile).validate({ allowed: 'strict' });
 
-  const loggerLevel = config.get('logger.level');
-  setupLogger({ level: loggerLevel });
+    const loggerLevel = config.get('logger.level');
+    setupLogger({ level: loggerLevel });
 
-  const paths = {
-    config: path.dirname(configFile),
-  };
+    const paths = {
+      config: path.dirname(configFile),
+    };
 
-  return {
-    runtime,
-    paths,
-  };
+    return {
+      runtime,
+      paths,
+    };
+  } catch (error: unknown) {
+    if (!(error instanceof Error)) {
+      logger.error('Unknown error occurred while reading configuration file');
+      logger.error(error);
+      logger.info('Exiting...');
+      process.exit(1);
+    }
+    logger.error(`Error reading configuration file: ${configFile}`);
+    logger.error(error.message);
+    logger.info('Exiting...');
+    process.exit(1);
+  }
 }
 
-const config = await loadConfiguration();
+const config: RuntimeConfiguration = await loadRuntimeConfiguration();
 
 export default config;

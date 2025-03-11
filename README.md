@@ -21,6 +21,8 @@ This project is written in TypeScript and uses Webpack for bundling and building
 - JEST for testing in TypeScript
 - Webpack for bundling and building
 - GitHub Workflow actions for CI/CD
+- SSL and HTTP/2 support with redirect from HTTP to HTTPS
+- KOA server for backend HTTP requests
 
 ## Getting Started
 1. Clone the repository
@@ -45,11 +47,21 @@ To run the project in development mode run:
 npm run start:dev
 ```
 
-## Running unit tests
+## Running unit and integration tests
 
-Units tests are split into two categories: backend and frontend. To run backend tests run:
+Unit and integration tests are written in TypeScript and run with JEST.
+The difference between unit and integration tests is that unit tests are testing only one unit of code and integration tests are testing how different units of code work together.
+To create a test create a file with `.spec.ts` extension in the same directory inside `__tests__` directory.
+When creating unit test then describe should start with `integration: ` prefix.
+When creating integration test then describe should start with `unit: ` prefix.
+
+Units tests are split into two categories: backend and frontend. 
+To run tests type:
 ```bash
-npm run test:unit:backend
+npm run test:backend:unit # unit tests for backend
+npm run test:frontend:unit # unit tests for frontend
+npm run test:backend:integration # integration tests for backend
+npm run test:frontend:integration # integration tests for frontend
 ```
 
 ## Linting the project
@@ -186,6 +198,11 @@ Configuration file is looked up in the root directory of the project and when it
 
 **Currently available runtime configuration settings:**
 - `logger.level` - Logging level (possible values: fatal, error, warn, info, debug, trace, silent)
+- `ports.http` - HTTP port that server redirects to HTTPS
+- `ports.https` - HTTPS port that server listens on with SSL certificates
+- `ssl.keyFile` - Path to SSL key file (PEM format)
+- `ssl.certFile` - Path to SSL certificate file (PEM format)
+- `domain` - Domain name that server listens on
 
 ### Build-time configuration
 Build-time configuration is a configuration that is provided during build time and is hardcoded in the project.
@@ -200,5 +217,15 @@ TypeScript declaration can be found in `src/backend/defined-globals.ts` and shou
 - `__TEST__` - true if project is built in test mode
 - `__COMPONENT_SERVER__` - true if there is only one server for all components and static content
 - `__COMPONENT_AUTH_SERVER__` - true if there is a separate server for authentication component
+
+## Certificates
+To run it is necessary to provide SSL certificates. Paths to certificates should be provided in `dist/server-config.yaml` file.
+If certificates are not provided, the server will not start.
+It is possible to generate self-signed certificates using OpenSSL. To generate self-signed certificates run:
+```bash
+node scripts/generate-certs.mjs
+```
+It will generate `private.key` and `certificate.crt` files in the `dist/certificates` directory.
+
 
 

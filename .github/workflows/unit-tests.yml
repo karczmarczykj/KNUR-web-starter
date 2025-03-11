@@ -25,6 +25,8 @@ jobs:
       - name: Run linting
         run: npm run lint
 
-      - name: Run server unit/integration tests
-        run: npm run test:unit:backend
+      - name: Run server integration tests
+        run: npm run test:backend:integration
 
+      - name: Run server unit tests
+        run: npm run test:backend:unit

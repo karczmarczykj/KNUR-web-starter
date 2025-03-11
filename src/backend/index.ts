@@ -36,7 +36,7 @@ const options = {
 };
 
 http2
-  .createSecureServer(options, app.callback.bind(this))
+  .createSecureServer(options, (req, res) => void app.callback()(req, res))
   .listen(httpsPort, () => {
     logger.info(
       'Server HTTP/2 is running on ' +
@@ -44,9 +44,11 @@ http2
     );
   });
 
-http.createServer(app.callback.bind(this)).listen(httpPort, () => {
-  logger.info(
-    'Server is redirecting to HTTPS from ' +
-      chalk.redBright(`http://${domain}:${httpPort}`)
-  );
-});
+http
+  .createServer((req, res) => void app.callback()(req, res))
+  .listen(httpPort, () => {
+    logger.info(
+      'Server is redirecting to HTTPS from ' +
+        chalk.redBright(`http://${domain}:${httpPort}`)
+    );
+  });

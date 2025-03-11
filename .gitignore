@@ -6,3 +6,9 @@ dist/production
 dist/test
 dist/certificates
 coverage
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

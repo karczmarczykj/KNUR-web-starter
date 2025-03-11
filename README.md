@@ -23,6 +23,7 @@ This project is written in TypeScript and uses Webpack for bundling and building
 - GitHub Workflow actions for CI/CD
 - SSL and HTTP/2 support with redirect from HTTP to HTTPS
 - KOA server for backend HTTP requests
+- Playwright for end-to-end tests
 
 ## Getting Started
 1. Clone the repository
@@ -97,6 +98,7 @@ npm run lint:fix
 │   └── server-config.yaml
 ├── scripts
 │   ├── generate-alias.mjs
+│   ├── generate-certs.mjs
 │   └── remove-alias.mjs
 ├── src
 │   ├── backend
@@ -112,17 +114,23 @@ npm run lint:fix
 │   │   │       └── index.spec.ts
 │   │   ├── defined-globals.ts
 │   │   ├── index.ts
-│   │   └── logger
-│   │       ├── index.ts
-│   │       └── setup.ts
+│   │   ├── logger
+│   │   │   ├── index.ts
+│   │   │   └── setup.ts
+│   │   └── __tests__
+│   │       └── healthchecks.spec.ts
 │   └── types
 │       └── find-file-up.d.ts
+├── e2e
+│   └── healthcheck.spec.ts
+├── misc
 ├── .babelrc
-├── eslint.config.js
 ├── .gitignore
+├── .prettierrc
+├── eslint.config.js
 ├── package.json
 ├── package-lock.json
-├── .prettierrc
+├── playwright.config.ts
 ├── README.md
 └── tsconfig.json
 ```
@@ -228,4 +236,11 @@ node scripts/generate-certs.mjs
 It will generate `private.key` and `certificate.crt` files in the `dist/certificates` directory.
 
 
+## E2E Tests with Playwright
+End-to-end tests are written in TypeScript and run with Playwright.
+To create a test create a file with `.spec.ts` extension in the `e2e` directory.
+To run tests type:
+```bash
+npx playwright test
+```
 

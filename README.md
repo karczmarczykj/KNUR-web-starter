@@ -184,7 +184,7 @@ Configuration is build based on convict library and is validated based on schema
 Configuration file name `server-config.yaml` is hardcoded in static configuration and is not changed during runtime.
 Configuration file is looked up in the root directory of the project and when it is not found, default configuration is used.
 
-*Currently available runtime configuration settings:*
+**Currently available runtime configuration settings:**
 - `logger.level` - Logging level (possible values: fatal, error, warn, info, debug, trace, silent)
 
 

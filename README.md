@@ -187,5 +187,18 @@ Configuration file is looked up in the root directory of the project and when it
 **Currently available runtime configuration settings:**
 - `logger.level` - Logging level (possible values: fatal, error, warn, info, debug, trace, silent)
 
+### Build-time configuration
+Build-time configuration is a configuration that is provided during build time and is hardcoded in the project.
+This configuration is set up by webpack define plugin and is avaliable in both frontend and backend components.
+To change build-time configuration it is necessary to change webpack configuration in `config/webpack/backend.ts` and `config/webpack/frontend.ts`.
+TypeScript declaration can be found in `src/backend/defined-globals.ts` and should be updated when new configuration is added.
+
+**Currently available build-time configuration settings:**
+
+- `__DEVELOPMENT__` - true if project is built in development mode
+- `__PRODUCTION__` - true if project is built in production mode
+- `__TEST__` - true if project is built in test mode
+- `__COMPONENT_SERVER__` - true if there is only one server for all components and static content
+- `__COMPONENT_AUTH_SERVER__` - true if there is a separate server for authentication component
 
 

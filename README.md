@@ -1,4 +1,3 @@
-// Center image:
 <p align="center">
   <img src="misc/logo.svg" alt="KNUR Web Platform Starter" />
 </p>

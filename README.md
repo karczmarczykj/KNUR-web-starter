@@ -7,10 +7,14 @@
 ## Overview
 KNUR Web Platform Starter is a starter project for web platform development.
 The main goal of this project is to provide a basic structure for web platform development with all necessary tools and configurations.
-The main advantage of this project is that it gives you a possibility to create a web platform with a single server that serves all components and static content.
+The main advantage of this project is that it gives you a possibility to develop a web platform with a single server that serves all components and static content.
+This will not only simplify the development process but also make it easier to manage the project.
+One server for all components and static content is only when development mode is used. 
+In production and test mode project is split into several servers in docker compose.
 This project is written in TypeScript and uses Webpack for bundling and building.
 
-_Project is still in development and most of the features are not implemented yet._
+
+**Project is still in development and most of the features are not implemented yet.**
 
 
 ## Features

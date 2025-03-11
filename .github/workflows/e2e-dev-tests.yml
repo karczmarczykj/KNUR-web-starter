@@ -5,7 +5,8 @@ on: [push, pull_request, workflow_dispatch]
 jobs:
   test:
     runs-on: ubuntu-latest
-
+    container:
+      image: mcr.microsoft.com/playwright:v1.41.1
     defaults:
       run:
         working-directory: . 
@@ -28,8 +29,6 @@ jobs:
       - name: Build in development mode
         run: npm run build:dev
 
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
 
       - name: Run Playwright tests
         run: npx playwright test

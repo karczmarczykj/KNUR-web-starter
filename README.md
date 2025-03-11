@@ -1,3 +1,5 @@
+![KNUR Web Platform Starter](misc/logo.svg)
+
 # KNUR Web Platform Starter
 
 ## Overview
@@ -63,7 +65,10 @@ npm run lint:fix
 ## Project structure
 ```bash
 .
-├── .babelrc
+├── .github
+│   └── workflows
+│       ├── e2e-dev-tests.yml
+│       └── unit-tests.yml
 ├── config
 │   ├── jest
 │   │   └── backend.config.ts
@@ -76,12 +81,6 @@ npm run lint:fix
 ├── dist
 │   ├── package.json
 │   └── server-config.yaml
-├── eslint.config.js
-├── .gitignore
-├── package.json
-├── package-lock.json
-├── .prettierrc
-├── README.md
 ├── scripts
 │   ├── generate-alias.mjs
 │   └── remove-alias.mjs
@@ -104,6 +103,13 @@ npm run lint:fix
 │   │       └── setup.ts
 │   └── types
 │       └── find-file-up.d.ts
+├── .babelrc
+├── eslint.config.js
+├── .gitignore
+├── package.json
+├── package-lock.json
+├── .prettierrc
+├── README.md
 └── tsconfig.json
 ```
 ## Aliases management
@@ -115,4 +121,47 @@ To remove an alias from the project run:
 ```bash
 node scripts/remove-alias.mjs
 ```
+Scripts are responsible to add or remove aliases in several configuration files:
+- `tsconfig.json`
+- `config/webpack/backend-aliases.json`
+- `config/webpack/frontend-aliases.json`
+- `config/jest/backend.config.ts`
+
+It is possible to add/remove it manually but remember to update all configuration files.
+
+## Importing modules
+
+Beacuse of TypeScript used in both project and webpack configuration, it is necessary to use aliases for importing modules. To import a module use `@` alias. For example:
+```typescript
+import { definedGlobals } from '@backend/defined-globals';
+```
+Remeber that building the project using same tsconfig as used in webpack causes that:
+  * It is not possible to add module extension to import statement:
+    ```typescript
+    import { definedGlobals } from '@backend/defined-globals.ts'; // This will not work
+    ```
+  * It is not possible to use relative paths in import statement:
+    ```typescript
+    import { definedGlobals } from '../../defined-globals'; // This will not work
+    ```
+  * It is not possible to use absolute paths in import statement:
+    ```typescript
+    import { definedGlobals } from '/src/backend/defined-globals'; // This will not work
+    ```
+## CI/CD
+Project uses GitHub Actions for CI/CD. There are two workflows:
+- `unit-tests.yml` - runs unit tests for backend and frontend
+- `e2e-dev-tests.yml` - runs end-to-end tests for development version of the project
+
+## Backend/frontend configuration implementation
+
+System components must be flexible during runtime operation and aware of the environment for which they were built and in which they are running.
+Therefore, information about how a component should work and in what environment it is running is provided from many different sources.
+
+![Configuration diagram](misc/configuration.svg)
+
+The configuration system is responsible for providing the necessary information to the components. The configuration system is divided into two several parts:
+- static configuration (common, frontend, backend)
+- runtime configuration
+- build-time configuration
 

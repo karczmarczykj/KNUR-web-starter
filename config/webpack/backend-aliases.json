@@ -3,5 +3,6 @@
   "@logger": "./src/backend/logger",
   "@backend": "./src/backend",
   "@webpack-config": "./config/webpack",
-  "@config": "./src/backend/config"
+  "@config": "./src/backend/config",
+  "@common": "./src/common"
 }

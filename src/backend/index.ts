@@ -1,4 +1,4 @@
-import { printGlobals } from '@backend/defined-globals';
+import { printBuildSettings } from '@backend/build-info';
 import { logger } from '@logger';
 import config from '@config-runtime';
 import chalk from 'chalk';
@@ -8,11 +8,11 @@ if (!config) {
   process.exit(1);
 }
 
-printGlobals();
+printBuildSettings();
 
 logger.info(chalk.yellow('🚀 Server is starting...'));
 logger.info(
   chalk.greenBright(
-    `Server configuration: \n${JSON.stringify(config.runtime.getProperties(), null, 2)}`
+    `Server runtime configuration: \n${JSON.stringify(config.runtime.getProperties(), null, 2)}`
   )
 );

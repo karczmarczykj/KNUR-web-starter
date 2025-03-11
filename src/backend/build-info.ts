@@ -1,13 +1,15 @@
+import {
+  __DEVELOPMENT__,
+  __PRODUCTION__,
+  __TEST__,
+  __COMPONENT_SERVER__,
+  __COMPONENT_AUTH_SERVER__,
+} from '@common/build-defined';
+
 import { logger } from '@logger';
 import chalk from 'chalk';
 
-export declare const __DEVELOPMENT__: boolean;
-export declare const __PRODUCTION__: boolean;
-export declare const __TEST__: boolean;
-export declare const __COMPONENT_SERVER__: boolean;
-export declare const __COMPONENT_AUTH_SERVER__: boolean;
-
-export function printGlobals(): void {
+export function printBuildSettings(): void {
   let result = 'Running ';
   const ornament = '▀▄'.repeat(15);
 

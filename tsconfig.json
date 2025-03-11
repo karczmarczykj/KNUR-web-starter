@@ -10,18 +10,44 @@
     "resolveJsonModule": true,
     "noEmit": true,
     "allowImportingTsExtensions": true,
-    "lib": ["ESNext"],
-    "types": ["node"],
+    "lib": [
+      "ESNext"
+    ],
+    "types": [
+      "node"
+    ],
     "baseUrl": "./",
     "paths": {
-      "@logger/*": ["src/backend/logger/*.ts"],
-      "@logger": ["src/backend/logger/index.ts"],
-      "@backend/*": ["src/backend/*.ts"],
-      "@config-runtime/*": ["src/backend/config/runtime/*.ts"],
-      "@config-runtime": ["src/backend/config/runtime/index.ts"],
-      "@webpack-config": ["src/backend/config/webpack/*"],
-      "@config/*": ["./src/backend/config/*.ts"],
-      "@config": ["./src/backend/config/index.ts"]
+      "@logger/*": [
+        "src/backend/logger/*.ts"
+      ],
+      "@logger": [
+        "src/backend/logger/index.ts"
+      ],
+      "@backend/*": [
+        "src/backend/*.ts"
+      ],
+      "@config-runtime/*": [
+        "src/backend/config/runtime/*.ts"
+      ],
+      "@config-runtime": [
+        "src/backend/config/runtime/index.ts"
+      ],
+      "@webpack-config": [
+        "src/backend/config/webpack/*"
+      ],
+      "@config/*": [
+        "./src/backend/config/*.ts"
+      ],
+      "@config": [
+        "./src/backend/config/index.ts"
+      ],
+      "@common/*": [
+        "./src/common/*.ts"
+      ],
+      "@common": [
+        "./src/common/index.ts"
+      ]
     }
   }
 }

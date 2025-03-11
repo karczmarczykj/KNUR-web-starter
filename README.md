@@ -167,3 +167,25 @@ The configuration system is responsible for providing the necessary information 
 - runtime configuration
 - build-time configuration
 
+### Static configuration
+Static configuration is a configuration that is hardcoded in the project and is not changed during runtime.
+Currently, there are three types of static configuration:
+- common configuration - configuration that is common for both frontend and backend
+- frontend configuration - configuration that is specific for frontend
+- backend configuration - configuration that is specific for backend (`src/backend/config`)
+
+Common static configuration contains information such as API Endpoint routes for several domains, frontend routes, etc.
+Backend static configuration contains information such as logger detailed configuration, etc.
+
+### Runtime configuration
+Runtime configuration is a configuration that is provided during runtime and can be changed during runtime.
+This configuration is avaliable only in backend components and is read from `dist/server-config.yaml` file.
+Configuration is build based on convict library and is validated based on schemas provided in `src/backend/config/runtime/schemas` directory.
+Configuration file name `server-config.yaml` is hardcoded in static configuration and is not changed during runtime.
+Configuration file is looked up in the root directory of the project and when it is not found, default configuration is used.
+
+*Currently available runtime configuration settings:*
+- `logger.level` - Logging level (possible values: fatal, error, warn, info, debug, trace, silent)
+
+
+

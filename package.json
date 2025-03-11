@@ -14,6 +14,7 @@
     "build:prod": "NODE_OPTIONS=\"--loader ts-node/esm\" npx webpack build -c ./config/webpack/webpack.config.ts --node-env production",
     "start:dev": "node dist/development/server/main.js",
     "clean": "rm -fR dist/development && rm -fR dist/production && rm -fR dist/test",
+    "cert:generate": "node scripts/generate-certs.mjs",
     "test:backend:unit": "jest --notify --config=config/jest/backend.config.ts --rootDir . --roots src --testNamePattern=\"unit:\"",
     "test:backend:integration": "jest --notify --config=config/jest/backend.config.ts --rootDir . --roots src --testNamePattern=\"integration:\""
   },

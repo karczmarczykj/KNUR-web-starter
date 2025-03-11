@@ -34,7 +34,7 @@ jobs:
         run: npm run build:dev
 
       - name: Generate SSL certificates
-        run: node ./scripts/generate-certs.js
+        run: npm run cert:generate
 
       - name: Run Playwright tests
         run: npx playwright test

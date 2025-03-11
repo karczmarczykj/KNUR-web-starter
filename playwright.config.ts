@@ -77,6 +77,8 @@ export default defineConfig({
     command: 'npm run start:dev',
     url: 'https://localhost:3000',
     reuseExistingServer: !process.env.CI,
+    stdout: 'pipe',
+    stderr: 'pipe',
     ignoreHTTPSErrors: true
   },
 });

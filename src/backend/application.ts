@@ -6,10 +6,10 @@ const app = new Koa();
 const router = new Router();
 
 app.use(async (ctx, next) => {
-    if (ctx.hostname.endsWith('.localhost')) {
-      logger.info(`Request from ${ctx.hostname}`);
-    }
-    await next();
+  if (ctx.hostname.endsWith('.localhost')) {
+    logger.info(`Request from ${ctx.hostname}`);
+  }
+  await next();
 });
 
 router.get('/', (ctx) => {

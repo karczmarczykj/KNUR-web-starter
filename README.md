@@ -41,7 +41,7 @@ npm run build:dev # build development version
 npm run build:test # build test version
 npm run build:production # build production version
 ```
-It should create a `dist\development` folder with all components and with every subdirectory should be `main.cjs` file that is ready to be served.
+It should create a `dist\development` (or version specified in the command) folder with all components and with every subdirectory should be `main.cjs` file that is ready to be served.
 
 To remove all build files in `dist` directory run:
 ```bash
@@ -50,11 +50,9 @@ npm run clean
 
 ## Running the project
 
-To run the project locally run:
+To run whole project locally it is possible only in development mode. To run the project in development mode run:
 ```bash
 npm run start:dev # run development version
-npm run start:test # run test version
-npm run start:production # run production version
 ```
 
 ## Running unit and integration tests

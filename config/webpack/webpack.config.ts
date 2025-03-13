@@ -11,7 +11,7 @@ const buildType = process.env.NODE_ENV as BuildType;
 const entry = './src/backend/index.ts';
 const configurations: Configuration[] = [];
 
-if (buildType === 'production') {
+if (buildType === 'production' || buildType === 'test') {
   const releaseComponents = ['api_server', 'auth_server', 'frontend_server'];
   for (const component of releaseComponents) {
     configurations.push(createBackendConfig(component, entry, buildType));

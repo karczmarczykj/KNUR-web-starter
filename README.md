@@ -24,6 +24,7 @@ This project is written in TypeScript and uses Webpack for bundling and building
 - SSL and HTTP/2 support with redirect from HTTP to HTTPS
 - KOA server for backend HTTP requests
 - Playwright for end-to-end tests
+- Docker compose for running project in production and test mode
 
 ## Getting Started
 1. Clone the repository
@@ -34,18 +35,26 @@ npm install
 
 ## Building the project
 
-To build development version of the project run:
+To build project locally run:
 ```bash
-npm run build:dev
+npm run build:dev # build development version
+npm run build:test # build test version
+npm run build:production # build production version
 ```
+It should create a `dist\development` folder with all components and with every subdirectory should be `main.cjs` file that is ready to be served.
 
-It should create a `dist\development` folder with all components and with every subdirectory should be `main.js` file that is ready to be served.
+To remove all build files in `dist` directory run:
+```bash
+npm run clean
+```
 
 ## Running the project
 
-To run the project in development mode run:
+To run the project locally run:
 ```bash
-npm run start:dev
+npm run start:dev # run development version
+npm run start:test # run test version
+npm run start:production # run production version
 ```
 
 ## Running unit and integration tests
@@ -81,10 +90,16 @@ npm run lint:fix
 ```bash
 .
 ├── .github
+│   ├── FUNDING.yml
 │   └── workflows
 │       ├── e2e-dev-tests.yml
 │       └── unit-tests.yml
 ├── config
+│   ├── docker
+│   │   ├── build.sh
+│   │   ├── run.sh
+│   │   ├── server-config.prod.yaml
+│   │   └── server-config.test.yaml
 │   ├── jest
 │   │   └── backend.config.ts
 │   └── webpack
@@ -96,15 +111,28 @@ npm run lint:fix
 ├── dist
 │   ├── package.json
 │   └── server-config.yaml
+├── e2e
+│   └── healthcheck.spec.ts
+├── eslint.config.js
+├── misc
+│   ├── configuration-dev.svg
+│   ├── configuration.svg
+│   ├── logo-dev.svg
+│   ├── logo-hi.png
+│   ├── logo.png
+│   └── logo.svg
 ├── scripts
 │   ├── generate-alias.mjs
 │   ├── generate-certs.mjs
 │   └── remove-alias.mjs
 ├── src
 │   ├── backend
+│   │   ├── application.ts
+│   │   ├── build-info.ts
 │   │   ├── config
 │   │   │   ├── index.ts
 │   │   │   ├── runtime
+│   │   │   │   ├── certificates.ts
 │   │   │   │   ├── formats.ts
 │   │   │   │   ├── index.ts
 │   │   │   │   └── schemas
@@ -112,26 +140,25 @@ npm run lint:fix
 │   │   │   │       └── server-api.ts
 │   │   │   └── __tests__
 │   │   │       └── index.spec.ts
-│   │   ├── defined-globals.ts
 │   │   ├── index.ts
 │   │   ├── logger
-│   │   │   ├── index.ts
-│   │   │   └── setup.ts
+│   │   │   ├── index.ts
+│   │   │   └── setup.ts
 │   │   └── __tests__
 │   │       └── healthchecks.spec.ts
+│   ├── common
+│   │   └── build-defined.ts
 │   └── types
 │       └── find-file-up.d.ts
-├── e2e
-│   └── healthcheck.spec.ts
-├── misc
 ├── .babelrc
 ├── .gitignore
 ├── .prettierrc
-├── eslint.config.js
+├── README.md
+├── Dockerfile
 ├── package.json
 ├── package-lock.json
 ├── playwright.config.ts
-├── README.md
+├── docker-compose.test.yml
 └── tsconfig.json
 ```
 ## Aliases management
@@ -155,25 +182,18 @@ It is possible to add/remove it manually but remember to update all configuratio
 
 Beacuse of TypeScript used in both project and webpack configuration, it is necessary to use aliases for importing modules. To import a module use `@` alias. For example:
 ```typescript
-import { definedGlobals } from '@backend/defined-globals';
+import { definedGlobals } from '@backend/defined-globals'; // ✅ This will work
 ```
-Remeber that building the project using same tsconfig as used in webpack causes that:
-  * It is not possible to add module extension to import statement:
+Remeber that building the project using same tsconfig as used in webpack causes that this is not possible
     ```typescript
-    import { definedGlobals } from '@backend/defined-globals.ts'; // This will not work
-    ```
-  * It is not possible to use relative paths in import statement:
-    ```typescript
-    import { definedGlobals } from '../../defined-globals'; // This will not work
-    ```
-  * It is not possible to use absolute paths in import statement:
-    ```typescript
-    import { definedGlobals } from '/src/backend/defined-globals'; // This will not work
+    import { definedGlobals } from '@backend/defined-globals.ts'; // ❌ This will not work
+    import { definedGlobals } from '../../defined-globals'; // ❌ This will not work
+    import { definedGlobals } from '/src/backend/defined-globals'; // ❌ This will not work
     ```
 ## CI/CD
 Project uses GitHub Actions for CI/CD. There are two workflows:
 - `unit-tests.yml` - runs unit tests for backend and frontend
-- `e2e-dev-tests.yml` - runs end-to-end tests for development version of the project
+- `e2e-dev-tests.yml` - runs end-to-end tests writtne in Playwright for development version of the project
 
 ## Backend/frontend configuration implementation
 
@@ -243,4 +263,31 @@ To run tests type:
 ```bash
 npx playwright test
 ```
+
+## Docker
+Project can be run in production and test mode using Docker compose. To run the project in production mode run:
+```bash
+docker compose -f docker-compose.production.yml up --build
+```
+
+To run the project in test mode run:
+```bash
+docker compose -f docker-compose.test.yml up --build
+```
+
+To tear down the project run:
+```bash
+docker compose down
+```
+
+Docker images during build runs scripts from `config/docker/build.sh` file. This script is responsible for copying necessary files to the image and setting up the environment.
+It is necessary to generate certificates during building, generating session keys and build in clean folder.
+Configuration for the server is provided in `config/docker/server-config.prod.yaml` and `config/docker/server-config.test.yaml` files.
+It is possible to build and run docker image without docker compose. To build and run docker image run:
+```bash
+docker build --build-arg BUILD_MODE=test --build-arg COMPONENT=api_server -t api_server -f Dockerfile .
+docker run -t api_server:latest
+```
+
+
 

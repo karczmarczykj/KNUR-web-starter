@@ -1,0 +1,44 @@
+name: Run e2e production tests in docker compose
+
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  playwright-e2e-production-tests:
+    name: 'Playwright Tests'
+    runs-on: ubuntu-latest
+
+    container:
+      image: mcr.microsoft.com/playwright:v1.51.0-noble
+      options: --user 1001
+
+    defaults:
+      run:
+        working-directory: . 
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Build Docker Compose Images
+        run: |
+          docker compose build -f docker-compose.test.yml
+
+      - name: Run Docker Compose
+        run: |
+          docker compose -f docker-compose.test.yml up -d
+
+      - name: Run Playwright tests
+        run: npx playwright test
+
+      - name: Show logs
+        if: failure()
+        run: |
+          docker compose logs
+
+      - name: Clean up services
+        run: docker compose -f docker-compose.yaml down

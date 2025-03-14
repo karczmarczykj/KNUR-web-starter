@@ -16,14 +16,8 @@ jobs:
         run: |
           apt-get update && apt-get install -y docker-compose python3-distlib python3-distutils-extra
 
-      - name: Switch to normal user
-        run: su - pwuser -c "docker-compose --version"
-
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Check Docker Compose version
-        run: docker-compose --version
 
       - name: Build Docker Compose Images
         run: docker-compose -f docker-compose.test.yml build

@@ -6,6 +6,8 @@ EXPOSE 80/tcp 443/tcp 3000/tcp 3001/tcp
 WORKDIR /home/node
 ARG BUILD_MODE=production
 ARG COMPONENT=api_server
+ENV BUILD_MODE=$BUILD_MODE
+ENV COMPONENT=$COMPONENT
 
 SHELL ["/bin/bash", "-c"]
 

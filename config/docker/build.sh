@@ -42,8 +42,6 @@ function build_webapp() {
   echo "Copying artefacts from dist/$1/$2 to $PACKAGE_PATH/server..."
   mkdir -p $PACKAGE_PATH/server
   cp -a dist/$1/$2/* $PACKAGE_PATH/server
-  # Rename main.js to main.cjs because package.json type is module
-  mv $PACKAGE_PATH/server/main.js $PACKAGE_PATH/server/main.cjs
 }
 
 function build() {

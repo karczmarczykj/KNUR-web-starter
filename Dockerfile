@@ -5,7 +5,7 @@ EXPOSE 80/tcp 443/tcp 3000/tcp 3001/tcp
 
 WORKDIR /home/node
 ARG BUILD_MODE=production
-ARG COMPONENT=production
+ARG COMPONENT=api_server
 
 SHELL ["/bin/bash", "-c"]
 

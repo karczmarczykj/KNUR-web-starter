@@ -1,6 +1,6 @@
 name: Run e2e development tests
 
-on: [push, pull_request, workflow_dispatch]
+#on: [push, pull_request, workflow_dispatch]
 
 jobs:
   playwright-e2e-dev-tests:

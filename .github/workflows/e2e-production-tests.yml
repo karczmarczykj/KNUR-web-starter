@@ -3,28 +3,6 @@ name: Run e2e production tests in docker compose
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
-  start-docker-compose:
-    name: 'Start Docker Compose Services'
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Build Docker Compose Images
-        run: docker compose -f docker-compose.test.yml build
-
-      - name: Run Docker Compose
-        run: docker compose -f docker-compose.test.yml up -d
-
-      - name: Wait for services to be ready
-        run: sleep 10  # Możesz zastąpić skryptem sprawdzającym dostępność serwisów
-
-      - name: Export Container IPs
-        run: |
-          echo "APP_URL=http://localhost:3000" >> $GITHUB_ENV
-          echo "DB_HOST=localhost" >> $GITHUB_ENV
-
   playwright-e2e-tests:
     name: 'Run Playwright Tests'
     needs: start-docker-compose
@@ -41,6 +19,19 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Install Docker Compose
+        run: |
+          apt-get update && apt-get install -y docker-compose
+
+      - name: Check Docker Compose version
+        run: docker-compose --version
+
+      - name: Build Docker Compose Images
+        run: docker compose -f docker-compose.test.yml build
+
+      - name: Run Docker Compose
+        run: docker compose -f docker-compose.test.yml up -d
 
       - name: Install dependencies
         run: npm ci

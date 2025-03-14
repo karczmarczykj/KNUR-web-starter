@@ -23,8 +23,8 @@ function build_certs() {
     echo "Generating certificates..."
     npm run cert:generate
   fi 
-  echo "Copying certificates from $DIST_PATH to $PACKAGE_PATH..."
-  cp -a $CERT_PATH $PACKAGE_PATH
+  echo "Copying certificates from $CERT_PATH to $PACKAGE_PATH..."
+  cp -a $CERT_PATH $PACKAGE_PATH/certificates
 }
 
 function build_webapp() {
@@ -51,7 +51,7 @@ function build() {
   if [ "$1" == "production" ] ; then
     cp $WEBAPP_PATH/config/docker/server-config.test.yaml $PACKAGE_PATH/server-config.yaml
   else
-    cp $WEBAPP_PATH/config/docker/server-config.prod.yaml $PACKAGE_PATH/server-config.yaml
+    cp $WEBAPP_PATH/config/production/server-config.prod.yaml $PACKAGE_PATH/server-config.yaml
   fi
 
   cp $WEBAPP_PATH/config/docker/run.sh $PACKAGE_PATH
@@ -60,6 +60,9 @@ function build() {
 
   if [ "$1" != "production" ] ; then
     build_certs
+  else
+    echo "Copying certificates from $CERT_PATH to $PACKAGE_PATH..."
+    cp -a config/production/certificates $PACKAGE_PATH/certificates
   fi
 
   chown -Rf node:node $PACKAGE_PATH

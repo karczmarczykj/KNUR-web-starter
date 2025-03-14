@@ -46,4 +46,4 @@ jobs:
         run: npm ci
 
       - name: Run Playwright tests
-        run: npx playwright test --no-web-server
+        run: npx playwright test -x -c playwright.config.docker.ts

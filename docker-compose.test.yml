@@ -7,5 +7,4 @@ services:
         BUILD_MODE: test
         COMPONENT: api_server
     ports:
-      - "443:443"
-      - "80:80"
+      - "3000:443"

@@ -7,5 +7,4 @@ services:
         BUILD_MODE: production
         COMPONENT: api_server
     ports:
-      - "443:443"
-      - "80:80"
+      - "8080:443"

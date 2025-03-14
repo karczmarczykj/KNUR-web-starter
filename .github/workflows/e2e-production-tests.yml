@@ -5,16 +5,11 @@ on: [push, pull_request, workflow_dispatch]
 jobs:
   playwright-e2e-tests:
     name: 'Run Playwright Tests'
-    needs: start-docker-compose
     runs-on: ubuntu-latest
 
     container:
       image: mcr.microsoft.com/playwright:v1.51.0-noble
       options: --user 1001
-
-    env:
-      APP_URL: ${{ needs.start-docker-compose.outputs.APP_URL }}
-      DB_HOST: ${{ needs.start-docker-compose.outputs.DB_HOST }}
 
     steps:
       - name: Checkout code

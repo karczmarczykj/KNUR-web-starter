@@ -9,15 +9,19 @@ jobs:
 
     container:
       image: mcr.microsoft.com/playwright:v1.51.0-noble
-      options: --user 1001
+      options: --user root
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
       - name: Install Docker Compose
         run: |
-          sudo apt-get update && apt-get install -y docker-compose
+          apt-get update && apt-get install -y docker-compose
+          chown -R pwuser:pwuser /usr/local/bin/docker-compose
+
+      - name: Switch to normal user
+        run: su - pwuser -c "docker-compose --version"
+
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Check Docker Compose version
         run: docker-compose --version

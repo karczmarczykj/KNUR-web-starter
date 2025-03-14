@@ -15,7 +15,6 @@ jobs:
       - name: Install Docker Compose
         run: |
           apt-get update && apt-get install -y docker-compose
-          chown -R pwuser:pwuser /usr/local/bin/docker-compose
 
       - name: Switch to normal user
         run: su - pwuser -c "docker-compose --version"

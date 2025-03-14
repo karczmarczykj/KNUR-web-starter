@@ -19,6 +19,7 @@ export default async (): Promise<Config> => {
   const moduleNameMapper = Object.entries(aliases).reduce(
     (acc: { [name: string]: string }, [alias, targetPath]) => {
       acc[`^${alias}/(.*)$`] = `<rootDir>/${targetPath}/$1`;
+      acc[`^${alias}$`] = `<rootDir>/${targetPath}/$1/index.ts`;
       return acc;
     },
     {}

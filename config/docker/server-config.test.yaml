@@ -1,8 +1,8 @@
 logger:
   level: info
 ports:
-  http: 80
-  https: 443
+  http: 3001
+  https: 3000
 ssl:
   certFile: certificates/certificate.crt
   keyFile: certificates/private.key

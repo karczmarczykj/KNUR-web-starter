@@ -7,15 +7,7 @@ jobs:
     name: 'Run Playwright Tests'
     runs-on: ubuntu-latest
 
-    container:
-      image: mcr.microsoft.com/playwright:v1.51.0-noble
-      options: --user root
-
     steps:
-      - name: Install Docker Compose
-        run: |
-          apt-get update && apt-get install -y docker-compose python3-distlib python3-distutils-extra
-
       - name: Checkout code
         uses: actions/checkout@v4
 

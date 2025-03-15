@@ -23,28 +23,28 @@ export const ServerCommonSchema: Schema<ServerCommonSchemaInterface> = {
       default: 'info',
     },
   },
-  ports: {
-    http: {
-      doc: 'The HTTP port the server listens redirects',
+  http: {
+    port: {
+      doc: 'The HTTP or HTTPS port the server listens',
       format: 'port',
       default: 80,
     },
-    https: {
-      doc: 'The HTTPS port the server listens on',
+    version: {
+      doc: 'Version of the HTTP protocol (possible values: 1.1, 2)',
       format: 'port',
-      default: 443,
+      default: 80,
     },
-  },
-  ssl: {
-    certFile: {
-      doc: 'Path to the SSL certificate file',
-      format: 'file',
-      default: null,
-    },
-    keyFile: {
-      doc: 'Path to the SSL key file',
-      format: 'file',
-      default: null,
+    ssl: {
+      certFile: {
+        doc: 'Path to the SSL certificate file',
+        format: 'file',
+        default: null,
+      },
+      keyFile: {
+        doc: 'Path to the SSL key file',
+        format: 'file',
+        default: null,
+      },
     },
   },
   domain: {

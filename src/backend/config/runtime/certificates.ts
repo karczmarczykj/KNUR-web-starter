@@ -1,5 +1,4 @@
 import { promises as fs } from 'fs';
-import path from 'path';
 import runtimeConfig from '@config-runtime';
 import { logger } from '@logger';
 import { Buffer } from 'buffer';
@@ -16,8 +15,23 @@ export interface Certificates {
 }
 
 export default async function (): Promise<Certificates> {
-  const certFile = path.join(runtimeConfig.runtime.get('ssl.certFile'));
-  const keyFile = path.join(runtimeConfig.runtime.get('ssl.keyFile'));
+  const certFile = runtimeConfig.runtime.get('http.ssl.cert');
+  const keyFile = runtimeConfig.runtime.get('http.ssl.key');
+
+  if (!certFile || !keyFile) {
+    logger.error('Skipping SSL setup, no certificate or key provided');
+    return {
+      paths: {
+        cert: '',
+        key: '',
+      },
+      content: {
+        cert: Buffer.from(''),
+        key: Buffer.from(''),
+      },
+    };
+  }
+
   logger.info(
     `Reading certificates files (cert file: ${certFile}, key file: ${keyFile})`
   );

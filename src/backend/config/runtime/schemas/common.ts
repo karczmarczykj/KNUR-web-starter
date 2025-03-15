@@ -4,13 +4,13 @@ export interface ServerCommonSchemaInterface {
   logger: {
     level: 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace' | 'silent';
   };
-  ports: {
-    http: number;
-    https: number;
-  };
-  ssl: {
-    certFile: string;
-    keyFile: string;
+  http: {
+    port: number;
+    version: '1.1' | '2';
+    ssl: {
+      cert: string | undefined;
+      key: string | undefined;
+    };
   };
   domain: string;
 }
@@ -23,28 +23,28 @@ export const ServerCommonSchema: Schema<ServerCommonSchemaInterface> = {
       default: 'info',
     },
   },
-  ports: {
-    http: {
-      doc: 'The HTTP port the server listens redirects',
+  http: {
+    port: {
+      doc: 'The HTTP or HTTPS port the server listens',
       format: 'port',
       default: 80,
     },
-    https: {
-      doc: 'The HTTPS port the server listens on',
-      format: 'port',
-      default: 443,
+    version: {
+      doc: 'Version of the HTTP protocol (possible values: 1.1, 2)',
+      format: ['1.1', '2'],
+      default: '2',
     },
-  },
-  ssl: {
-    certFile: {
-      doc: 'Path to the SSL certificate file',
-      format: 'file',
-      default: null,
-    },
-    keyFile: {
-      doc: 'Path to the SSL key file',
-      format: 'file',
-      default: null,
+    ssl: {
+      cert: {
+        doc: 'Path to the SSL certificate file encoded in PEM format',
+        format: 'optionalFile',
+        default: undefined,
+      },
+      key: {
+        doc: 'Path to the SSL key file encoded in PEM format',
+        format: 'optionalFile',
+        default: undefined,
+      },
     },
   },
   domain: {

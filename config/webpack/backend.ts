@@ -51,7 +51,7 @@ export default function createBackendConfig(
     entry: entry as string,
     output: {
       path: output,
-      filename: 'main.js',
+      filename: 'main.cjs',
     },
     resolve: {
       extensions: ['.ts', '.js'],

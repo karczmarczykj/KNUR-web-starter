@@ -6,6 +6,7 @@ import {
 import { staticConfig } from '@config';
 import { logger } from '@logger';
 import setupLogger from '@logger/setup';
+import { validate } from '@config-runtime/validateConsistency';
 
 import convict from 'convict';
 import yaml from 'js-yaml';
@@ -46,6 +47,7 @@ async function loadRuntimeConfiguration(): Promise<RuntimeConfiguration> {
 
   try {
     const runtime = config.loadFile(configFile).validate({ allowed: 'strict' });
+    validate(runtime.getProperties());
 
     const loggerLevel = config.get('logger.level');
     setupLogger({ level: loggerLevel });

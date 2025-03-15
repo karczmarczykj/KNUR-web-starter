@@ -1,0 +1,10 @@
+services:
+  webapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        BUILD_MODE: production
+        COMPONENT: api_server
+    ports:
+      - "8080:443"

@@ -1,0 +1,10 @@
+services:
+  webapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        BUILD_MODE: test
+        COMPONENT: api_server
+    ports:
+      - "3000:3000"

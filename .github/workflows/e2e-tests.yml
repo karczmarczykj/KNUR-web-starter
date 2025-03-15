@@ -1,0 +1,27 @@
+name: Run e2e tests in Playwright
+
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  playwright-e2e-tests:
+    name: 'Run Playwright Tests'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker Compose Images
+        run: docker compose -f docker-compose.test.yml build
+
+      - name: Run Docker Compose
+        run: docker compose -f docker-compose.test.yml up -d
+
+      - name: Opened ports
+        run: docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Ports}}"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Playwright tests
+        run: npx playwright test -x -c playwright.config.docker.ts

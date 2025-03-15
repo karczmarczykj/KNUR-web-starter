@@ -1,0 +1,7 @@
+logger:
+  level: info
+http:
+  port: 3000
+  ssl:
+    cert: "./certificates/certificate.crt"
+    key: "./certificates/private.key"

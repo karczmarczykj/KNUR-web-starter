@@ -1,8 +1,8 @@
 logger:
   level: info
-ports:
-  http: 2999
-  https: 3000
-ssl:
-  certFile: dist/certificates/certificate.crt
-  keyFile: dist/certificates/private.key
+http:
+  port: 3000
+  ssl:
+    cert: "dist/certificates/certificate.crt"
+    key: "dist/certificates/private.key"
+

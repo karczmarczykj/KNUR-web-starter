@@ -1,6 +1,5 @@
 import { printBuildSettings } from '@backend/build-info';
 import { logger } from '@logger';
-import config from '@config-runtime';
 import app from '@backend/application';
 import readCerts from '@config-runtime/certificates';
 import runtimeConfig from '@config-runtime';
@@ -13,7 +12,7 @@ import { IncomingMessage, ServerResponse } from 'http';
 import { Http2ServerRequest, Http2ServerResponse } from 'http2';
 import { ServerCommonSchemaInterface } from '@config-runtime/schemas/common';
 
-if (!config) {
+if (!runtimeConfig) {
   logger.error('Configuration cannot be initialized, exiting...');
   process.exit(1);
 }
@@ -23,7 +22,7 @@ printBuildSettings();
 logger.info(chalk.yellow('🚀 Server is starting...'));
 logger.info(
   chalk.greenBright(
-    `Server runtime configuration: \n${JSON.stringify(config.runtime.getProperties(), null, 2)}`
+    `Server runtime configuration: \n${JSON.stringify(runtimeConfig.runtime.getProperties(), null, 2)}`
   )
 );
 

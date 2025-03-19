@@ -1,19 +1,29 @@
 import Koa from 'koa';
-import Router from 'koa-router';
+import { router } from '@routes';
 import { logger } from '@logger';
+import { __DEVELOPMENT__ } from '@common/build-defined';
+import serve from 'koa-static';
+import path from 'path';
 
+declare const __dirname: string;
+const publicPath = path.resolve(__dirname, '../public');
 const app = new Koa();
-const router = new Router();
+
+logger.info(`Static files will be served from: ${publicPath}`);
+if (__DEVELOPMENT__) {
+  const { default: setFrontendMiddleware } = await import(
+    '@backend/dev/frontend-middleware'
+  );
+  setFrontendMiddleware(app);
+} else {
+  app.use(serve(publicPath));
+}
 
 app.use(async (ctx, next) => {
   if (ctx.hostname.endsWith('.localhost')) {
     logger.info(`Request from ${ctx.hostname}`);
   }
   await next();
-});
-
-router.get('/', (ctx) => {
-  ctx.body = { message: 'Hello, world!' };
 });
 
 app.use(router.routes());

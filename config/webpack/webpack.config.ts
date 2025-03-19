@@ -5,14 +5,15 @@ import { Configuration } from 'webpack';
 // see package.json scripts for more info
 import { BuildType } from './build-types.js';
 import createBackendConfig from './backend.js';
+import createFrontendConfig from './frontend.js';
 
 const buildType = process.env.NODE_ENV as BuildType;
 
 const entry = './src/backend/index.ts';
-const configurations: Configuration[] = [];
+const configurations: Configuration[] = createFrontendConfig(buildType);
 
 if (buildType === 'production' || buildType === 'test') {
-  const releaseComponents = ['api_server', 'auth_server', 'frontend_server'];
+  const releaseComponents = ['api_server'];
   for (const component of releaseComponents) {
     configurations.push(createBackendConfig(component, entry, buildType));
   }

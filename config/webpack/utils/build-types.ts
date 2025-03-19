@@ -8,3 +8,8 @@ export interface FrontendParams {
   buildType: BuildType;
 }
 
+export interface ComponentsInterface {
+  backend: string[];
+  frontend: string[];
+};
+

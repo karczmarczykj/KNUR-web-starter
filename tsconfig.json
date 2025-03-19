@@ -34,7 +34,7 @@
         "src/backend/config/runtime/index.ts"
       ],
       "@webpack-config": [
-        "src/backend/config/webpack/*"
+        "./src/backend/config/webpack/*"
       ],
       "@config/*": [
         "./src/backend/config/*.ts"
@@ -47,6 +47,12 @@
       ],
       "@common": [
         "./src/common/index.ts"
+      ],
+      "@routes/*": [
+        "./src/backend/routes/*.ts"
+      ],
+      "@routes": [
+        "./src/backend/routes/index.ts"
       ]
     }
   }

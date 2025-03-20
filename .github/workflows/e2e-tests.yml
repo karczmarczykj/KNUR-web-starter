@@ -31,5 +31,3 @@ jobs:
         run: |
           docker compose logs -f docker-compose.test.yaml 
 
-      - name: Clean up services
-        run: docker compose -f docker-compose.test.yaml down

@@ -15,7 +15,7 @@ function createFrontendConfigurations(
     const createFrotnendParams: FrontendParams = {
       service: frontendService,
       buildType: 'development',
-      entry: `./src/frontend/${frontendService}/index.js`,
+      entry: `./src/frontend/${frontendService}/index.ts`,
     };
     configList.push(createFrontendConfig(createFrotnendParams));
   });

@@ -40,7 +40,7 @@ export default (env: { buildMode?: string, service?: string }) => {
 
   if ( buildMode !== 'development' ) {
     for (const frontendService of frontendsToBuild) {
-      configurations.push(createFrontendConfig({ service: frontendService, buildType: buildMode, entry: `./src/frontend/${frontendService}/index.js` }));
+      configurations.push(createFrontendConfig({ service: frontendService, buildType: buildMode, entry: `./src/frontend/${frontendService}/index.ts` }));
     }
   }
 

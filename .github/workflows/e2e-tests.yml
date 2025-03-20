@@ -25,3 +25,11 @@ jobs:
 
       - name: Run Playwright tests
         run: npx playwright test -x -c playwright.config.docker.ts
+
+      - name: Show logs
+        if: failure()
+        run: |
+          docker compose logs
+
+      - name: Clean up services
+        run: docker compose -f docker-compose.test.yaml down

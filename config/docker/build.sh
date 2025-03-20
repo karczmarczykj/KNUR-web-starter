@@ -42,6 +42,8 @@ function build_webapp() {
   echo "Copying artefacts from dist/$1/$2 to $PACKAGE_PATH/server..."
   mkdir -p $PACKAGE_PATH/server
   cp -a dist/$1/$2/* $PACKAGE_PATH/server
+  mkdir -p $PACKAGE_PATH/content
+  cp -a dist/$1/content/* $PACKAGE_PATH/content
 }
 
 function build() {

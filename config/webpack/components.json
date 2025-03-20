@@ -1,4 +1,0 @@
-{
-  "backend": [ "api_server", "public" ],
-  "frontend": [ "public" ]
-}

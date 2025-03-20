@@ -2,8 +2,8 @@ import {
   __DEVELOPMENT__,
   __PRODUCTION__,
   __TEST__,
-  __COMPONENT_SERVER__,
-  __COMPONENT_AUTH_SERVER__,
+  __BACKEND_SERVICES__,
+  __FRONTEND_SERVICES__,
 } from '@common/build-defined';
 
 import { logger } from '@logger';
@@ -12,17 +12,6 @@ import chalk from 'chalk';
 export function printBuildSettings(): void {
   let result = 'Running ';
   const ornament = '▀▄'.repeat(15);
-
-  if (typeof __COMPONENT_SERVER__ !== 'undefined' && __COMPONENT_SERVER__) {
-    result += '͟S͟E͟R͟V͟E͟R͟ component ';
-  }
-
-  if (
-    typeof __COMPONENT_AUTH_SERVER__ !== 'undefined' &&
-    __COMPONENT_AUTH_SERVER__
-  ) {
-    result += '͟A͟U͟T͟H͟ ͟S͟E͟R͟V͟E͟R͟ component ';
-  }
 
   result += 'in ';
 
@@ -35,4 +24,18 @@ export function printBuildSettings(): void {
   }
 
   logger.info(chalk.magenta(ornament + ' ' + result + ' ' + ornament));
+
+  if (__BACKEND_SERVICES__.length > 0) {
+    const servicesBold = __BACKEND_SERVICES__
+      .map((service) => chalk.bold(service))
+      .join(', ');
+    logger.info(`Running backend services: ${servicesBold}`);
+  }
+
+  if (__FRONTEND_SERVICES__.length > 0) {
+    const servicesBold = __FRONTEND_SERVICES__
+      .map((service) => chalk.bold(service))
+      .join(', ');
+    logger.info(`Running frontend services: ${servicesBold}`);
+  }
 }

@@ -3,6 +3,7 @@ import { logger } from '@logger';
 import app from '@backend/application';
 import readCerts from '@config-runtime/certificates';
 import runtimeConfig from '@config-runtime';
+import staticContent from '@backend/static-content';
 
 import chalk from 'chalk';
 import http2 from 'http2';
@@ -11,6 +12,8 @@ import https from 'https';
 import { IncomingMessage, ServerResponse } from 'http';
 import { Http2ServerRequest, Http2ServerResponse } from 'http2';
 import { ServerCommonSchemaInterface } from '@config-runtime/schemas/common';
+
+await staticContent(app);
 
 if (!runtimeConfig) {
   logger.error('Configuration cannot be initialized, exiting...');

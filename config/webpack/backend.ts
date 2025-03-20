@@ -10,13 +10,18 @@ import aliases from './backend-aliases.json' with { type: "json" };
 const workDirPath = path.dirname(fileURLToPath(import.meta.url));
 const distPath = path.resolve(workDirPath, '..', '..', 'dist');
 
-function createDefinitions(name: string, buildType: BuildType) {
-  const componentMacro = `__COMPONENT_${name.toUpperCase()}__`;
-  const definitions = {
+interface Definitions {
+  [name: string]: boolean | string;
+}
+
+function createDefinitions(backendServices: string[], frontnedServices: string[], buildType: BuildType) {
+  const definitions : Definitions = {
     __DEVELOPMENT__: buildType === 'development',
     __TEST__: buildType === 'test',
+    __TEST_JEST__: false,
     __PRODUCTION__: buildType === 'production',
-    [componentMacro]: true,
+    __BACKEND_SERVICES_STRING__: JSON.stringify(backendServices, null, 2),
+    __FRONTEND_SERVICES_STRING__: JSON.stringify(frontnedServices, null, 2),
   };
 
   return new webpack.DefinePlugin(definitions);
@@ -34,6 +39,8 @@ function resolveAliases() {
 
 export default function createBackendConfig(
   name: string,
+  backendServices: string[],
+  frontendServices: string[],
   entry: PathLike,
   buildType: BuildType
 ): Configuration {
@@ -76,6 +83,6 @@ export default function createBackendConfig(
     experiments: {
       topLevelAwait: true,
     },
-    plugins: [createDefinitions(name, buildType)],
+    plugins: [createDefinitions(backendServices, frontendServices, buildType)],
   };
 }

@@ -5,6 +5,6 @@ services:
       dockerfile: Dockerfile
       args:
         BUILD_MODE: production
-        COMPONENT: api_server
+        COMPONENT: all
     ports:
       - "8080:443"

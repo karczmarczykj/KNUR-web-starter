@@ -1,0 +1,4 @@
+{
+  "backend": [ "api_server" ],
+  "frontend": [ "root", "user" ]
+}

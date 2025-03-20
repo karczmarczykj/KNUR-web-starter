@@ -19,7 +19,13 @@ export default async (): Promise<Config> => {
   const moduleNameMapper = Object.entries(aliases).reduce(
     (acc: { [name: string]: string }, [alias, targetPath]) => {
       acc[`^${alias}/(.*)$`] = `<rootDir>/${targetPath}/$1`;
-      acc[`^${alias}$`] = `<rootDir>/${targetPath}/$1/index.ts`;
+      if (alias === '@config-runtime') {
+        acc[`^${alias}$`] = `<rootDir>/${targetPath}/$1/__mocks__/index.ts`;
+      } else if (alias === '#ansi-styles') {
+        acc[`^${alias}$`] = '<rootDir>/node_modules/ansi-styles/index.js'
+      } else
+        acc[`^${alias}$`] = `<rootDir>/${targetPath}/$1/index.ts`;
+
       return acc;
     },
     {}
@@ -41,6 +47,7 @@ export default async (): Promise<Config> => {
     testEnvironment: 'node',
     transform: {
       '^.+\\.tsx?$': 'ts-jest',
+      '^.+\\.ts?$': 'ts-jest',
     },
     moduleNameMapper,
     testMatch: [

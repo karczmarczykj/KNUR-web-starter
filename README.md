@@ -241,8 +241,9 @@ TypeScript declaration can be found in `src/backend/defined-globals.ts` and shou
 - `__DEVELOPMENT__` - true if project is built in development mode
 - `__PRODUCTION__` - true if project is built in production mode
 - `__TEST__` - true if project is built in test mode
-- `__COMPONENT_SERVER__` - true if there is only one server for all components and static content
-- `__COMPONENT_AUTH_SERVER__` - true if there is a separate server for authentication component
+- `__SERVICE_PUBLIC__` - true when service is serving public static content
+- `__SERVICE_API_SERVER__` - true when service is serving API server
+- `__SERVICE_USER__` - true when serving user static content
 
 ## Certificates
 To run it is necessary to provide SSL certificates. Paths to certificates should be provided in `dist/server-config.yaml` file.

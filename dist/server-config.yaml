@@ -2,6 +2,7 @@ logger:
   level: info
 http:
   port: 3000
+  version: "2"
   ssl:
     cert: "dist/certificates/certificate.crt"
     key: "dist/certificates/private.key"

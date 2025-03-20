@@ -4,21 +4,49 @@ import { Configuration } from 'webpack';
 // even if in reality it is a .ts file this is caused by the fact that ts-node/esm is used
 // see package.json scripts for more info
 import { BuildType } from './build-types.js';
+import chalk from 'chalk';
 import createBackendConfig from './backend.js';
-import createFrontendConfig from './frontend.js';
+import { createFrontendConfig } from './frontend.js';
+import services from './services.json' with { type: "json" };
 
-const buildType = process.env.NODE_ENV as BuildType;
+export default (env: { buildMode?: string, service?: string }) => {
+  const buildMode = env.buildMode as BuildType || "production" as BuildType;
+  const service = env.service || "all";
 
-const entry = './src/backend/index.ts';
-const configurations: Configuration[] = createFrontendConfig(buildType);
+  console.log('Building service ' + chalk.bold(service) + ' in ' + chalk.bold(buildMode) + ' mode');
+  console.log('Available backend services: ' + chalk.bold(services.backend.join(', ')));
+  console.log('Available frontend services: ' + chalk.bold(services.frontend.join(', ')));
 
-if (buildType === 'production' || buildType === 'test') {
-  const releaseComponents = ['api_server'];
-  for (const component of releaseComponents) {
-    configurations.push(createBackendConfig(component, entry, buildType));
+  if (service !== 'all' && (!services.backend.includes(service) && !services.frontend.includes(service))) {
+    console.error('Service ' + chalk.bold(service) + ' not found in services.json');
+    process.exit(1);
   }
-} else {
-  configurations.push(createBackendConfig('server', entry, buildType));
-}
+  let backendsToBuild = [ service ];
+  let frontendsToBuild : string[] = [ ];
+  if (service === 'all') {
+    backendsToBuild = [...services.backend, ...services.frontend];
+    frontendsToBuild = services.frontend;
+  } else {
+    backendsToBuild = [ service ];
+    if (services.frontend.includes(service) && buildMode !== 'development') {
+      frontendsToBuild = [ service ];
+    }
+  }
 
-export default configurations;
+  const backendEntry = './src/backend/index.ts';
+  let configurations: Configuration[] = [];
+
+  console.log('Building frontends: ' + chalk.bold(frontendsToBuild.join(', ')));
+
+  if ( buildMode !== 'development' ) {
+    for (const frontendService of frontendsToBuild) {
+      configurations.push(createFrontendConfig({ service: frontendService, buildType: buildMode, entry: `./src/frontend/${frontendService}/index.js` }));
+    }
+  }
+
+  console.log('Building backends: ' + chalk.bold(backendsToBuild.join(', ')));
+
+  configurations.push(createBackendConfig(service, backendsToBuild, frontendsToBuild, backendEntry, buildMode));
+
+  return configurations;
+};

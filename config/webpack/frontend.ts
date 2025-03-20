@@ -5,19 +5,16 @@ import { Configuration } from 'webpack';
 import nodeExternals from 'webpack-node-externals';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import components from './components.json' with { type: "json" };
 import frontendAliases from './frontend-aliases.json' with { type: "json" };
-
-console.log('components', components);
 
 const workDirPath = path.dirname(fileURLToPath(import.meta.url));
 const distPath = path.resolve(workDirPath, '..', '..', 'dist');
 
-function createFrontendConfig(params : FrontendParams): Configuration {
-  const output = path.resolve(distPath, params.buildType as string, params.component);
+export function createFrontendConfig(params : FrontendParams): Configuration {
+  const output = path.resolve(distPath, params.buildType as string, 'content', params.service);
+  console.log('Build output: ' + output);
+  console.log('Service: ' + params.service);
   let publicPath = '/';
-  if (params.component !== 'public')
-    publicPath = `/${params.component}/`;
 
   const frontendConfig : Configuration = {
     target: 'web',
@@ -50,25 +47,13 @@ function createFrontendConfig(params : FrontendParams): Configuration {
     },
     plugins: [
       new HtmlWebpackPlugin({
-        template: `./src/frontend/${params.component}/index.html`,
+        template: `./src/frontend/${params.service}/index.html`,
         filename: 'index.html',
-        chunks: [params.component]
+        chunks: [params.service]
       })
     ]
   };
 
   return frontendConfig;
-}
-
-export default function componentConfigurations(buildType : BuildType) : Configuration[] {
-  const configurations: Configuration[] = [];
-  for (const component of components.frontend) {
-    configurations.push(createFrontendConfig({
-      component,
-      entry: `./src/frontend/${component}/index.js`,
-      buildType
-    }));
-  }
-  return configurations;
 }
 

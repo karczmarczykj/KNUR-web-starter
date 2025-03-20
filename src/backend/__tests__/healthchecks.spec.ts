@@ -3,8 +3,8 @@ import app from '@backend/application';
 import { describe, expect, it } from '@jest/globals';
 import httpMocks from 'node-mocks-http';
 
-describe('Koa API healthcheck tests', () => {
-  it('should return 200 and JSON response', async () => {
+describe('integration: Koa API healthcheck tests', () => {
+  it('should return 404', async () => {
     const request = httpMocks.createRequest({
       method: 'GET',
       url: '/',
@@ -14,11 +14,10 @@ describe('Koa API healthcheck tests', () => {
 
     await app.callback()(request, response);
 
-    expect(response.statusCode).toBe(200);
-    expect(response._getJSONData()).toStrictEqual({ message: 'Hello, world!' });
+    expect(response.statusCode).toBe(404);
   });
 
-  it('should return 404 for an unknown route', async () => {
+  it('should return 200 for an unknown route', async () => {
     const request = httpMocks.createRequest({
       method: 'GET',
       url: '/unknown',

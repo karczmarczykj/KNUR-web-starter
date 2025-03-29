@@ -3,7 +3,7 @@ import { Configuration } from 'webpack';
 // Very important !!!! ts-loader will not work without importing this as .js file
 // even if in reality it is a .ts file this is caused by the fact that ts-node/esm is used
 // see package.json scripts for more info
-import { BuildType } from './build-types.js';
+import { BuildType } from './utils/build-types.js';
 import chalk from 'chalk';
 import createBackendConfig from './backend.js';
 import { createFrontendConfig } from './frontend.js';
@@ -36,17 +36,23 @@ export default (env: { buildMode?: string, service?: string }) => {
   const backendEntry = './src/backend/index.ts';
   let configurations: Configuration[] = [];
 
-  console.log('Building frontends: ' + chalk.bold(frontendsToBuild.join(', ')));
 
   if ( buildMode !== 'development' ) {
+    console.log('Building frontends: ' + chalk.bold(frontendsToBuild.join(', ')));
     for (const frontendService of frontendsToBuild) {
-      configurations.push(createFrontendConfig({ service: frontendService, buildType: buildMode, entry: `./src/frontend/${frontendService}/index.ts` }));
+      configurations.push(createFrontendConfig({ service: frontendService, buildType: buildMode, entry: `./src/frontend/${frontendService}/index.tsx` }));
     }
+  } else {
+    console.log('Frontends wont be build in case of development version');
   }
 
   console.log('Building backends: ' + chalk.bold(backendsToBuild.join(', ')));
 
   configurations.push(createBackendConfig(service, backendsToBuild, frontendsToBuild, backendEntry, buildMode));
 
+  for (const configItem of configurations) {
+    console.log(`Aliases for ${configItem.name}`);
+    console.log(JSON.stringify(configItem.resolve?.alias));
+  }
   return configurations;
 };

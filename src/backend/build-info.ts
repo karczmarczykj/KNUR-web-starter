@@ -4,7 +4,7 @@ import {
   __TEST__,
   __BACKEND_SERVICES__,
   __FRONTEND_SERVICES__,
-} from '@common/build-defined';
+} from '@backend/common/build-defined';
 
 import { logger } from '@logger';
 import chalk from 'chalk';

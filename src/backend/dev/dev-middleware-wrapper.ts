@@ -2,6 +2,8 @@ import { logger } from '@logger';
 import Koa from 'koa';
 import chalk from 'chalk';
 import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHot from 'webpack-hot-middleware';
+
 import webpack from 'webpack';
 
 import { Context } from 'koa';
@@ -50,6 +52,7 @@ export default function wrappedMiddleware(
   const devMiddlewares: {
     [key: string]: ReturnType<typeof webpackDevMiddleware>;
   } = {};
+  const hotMiddlware: { [key: string]: ReturnType<typeof webpackHot> } = {};
   const compilerList: { [key: string]: webpack.Compiler } = {};
 
   configurations.forEach((config, index) => {
@@ -63,6 +66,7 @@ export default function wrappedMiddleware(
       publicPath: '/',
       mimeTypeDefault: 'text/html',
     };
+    hotMiddlware[service] = webpackHot(compiler);
     devMiddlewares[service] = webpackDevMiddleware(compiler, options);
     compilerList[service] = compiler;
   });
@@ -108,6 +112,13 @@ export default function wrappedMiddleware(
           else resolve(null);
         });
       });
+      await new Promise((resolve, reject) =>
+        hotMiddlware[service](ctx.req, ctx.res, (err) => {
+          // eslint-disable-next-line
+          if (err) reject(err);
+          else resolve(null);
+        })
+      );
     } catch (err: unknown) {
       if (err instanceof Koa.HttpError) {
         ctx.status = err.statusCode || err.status || 500;

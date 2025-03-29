@@ -4,7 +4,7 @@ import {
   __TEST_JEST__,
   __DEVELOPMENT__,
   __FRONTEND_SERVICES__,
-} from '@common/build-defined';
+} from '@backend/common/build-defined';
 import serve from 'koa-static';
 import path from 'path';
 import { getSubdomainName } from '@backend/common/subdomain';

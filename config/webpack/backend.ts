@@ -1,18 +1,22 @@
-import { BuildType } from './build-types.js';
+import { BuildType } from './utils/build-types.ts';
+import * as resolveAliases from './utils/resolveAliases.ts';
 
 import { PathLike } from 'fs';
 import webpack, { Configuration } from 'webpack';
 import nodeExternals from 'webpack-node-externals';
 import path from 'path';
-import { fileURLToPath } from 'url';
-import aliases from './backend-aliases.json' with { type: "json" };
+import backendAliases from './backend-aliases.json' with { type: "json" };
+import * as workdir from './utils/workdir.ts';
 
-const workDirPath = path.dirname(fileURLToPath(import.meta.url));
-const distPath = path.resolve(workDirPath, '..', '..', 'dist');
+const workDirPath = workdir.default();
+const distPath = path.resolve(workDirPath, 'dist');
 
-interface Definitions {
-  [name: string]: boolean | string;
-}
+type Definitions = Record<'__DEVELOPMENT__' | 
+                          '__TEST__' | 
+                          '__TEST_JEST__' |
+                          '__PRODUCTION__' | 
+                          '__BACKEND_SERVICES_STRING__' | 
+                          '__FRONTEND_SERVICES_STRING__', string | boolean>;
 
 function createDefinitions(backendServices: string[], frontnedServices: string[], buildType: BuildType) {
   const definitions : Definitions = {
@@ -27,16 +31,6 @@ function createDefinitions(backendServices: string[], frontnedServices: string[]
   return new webpack.DefinePlugin(definitions);
 }
 
-function resolveAliases() {
-  const retval: { [name: string]: string } = {};
-
-  for (const key of Object.keys(aliases)) {
-    retval[key] = path.resolve(workDirPath as string, '..', '..', aliases[key as keyof typeof aliases]);
-  }
-
-  return retval;
-}
-
 export default function createBackendConfig(
   name: string,
   backendServices: string[],
@@ -49,35 +43,45 @@ export default function createBackendConfig(
 
   return {
     mode,
+    name,
     target: 'node',
     externals: [nodeExternals()],
+    externalsPresets : {
+      node: true,
+    },
     entry: entry as string,
+    stats: 'minimal',
     output: {
       path: output,
       filename: 'main.cjs',
     },
     resolve: {
-      extensions: ['.ts', '.js'],
-      alias: resolveAliases(),
+      extensions: ['.ts', '.js', '.json'],
+      alias: resolveAliases.default(backendAliases, workDirPath),
     },
     module: {
       rules: [
         {
           test: /\.(ts|tsx)$/,
+          exclude: [/node_modules/],
           use: {
-            loader: 'ts-loader',
+            loader: 'babel-loader',
             options: {
-              logLevel: 'INFO',
-              compilerOptions: {
-                module: 'preserve',
-                moduleResolution: 'bundler',
-                noEmit: false,
-                allowImportingTsExtensions: false,
-              },
-            },
+              presets: [
+                '@babel/preset-env',
+                ['@babel/preset-react', { runtime: 'automatic' }],
+                '@babel/preset-typescript'
+              ],
+              plugins: [
+                ["@babel/plugin-syntax-import-assertions"],
+              ]
+            }
           },
-          exclude: /node_modules/,
         },
+        {
+          test: /\.json$/,
+          type: 'json'
+        }
       ],
     },
     experiments: {

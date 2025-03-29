@@ -1,1 +1,4 @@
-{}
+{
+  "@common-global": "./src/common",
+  "@frontend": "./src/frontend"
+}

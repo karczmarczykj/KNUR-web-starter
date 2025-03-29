@@ -43,7 +43,7 @@ export default (env: { buildMode?: string, service?: string }) => {
       configurations.push(createFrontendConfig({ service: frontendService, buildType: buildMode, entry: `./src/frontend/${frontendService}/index.tsx` }));
     }
   } else {
-    console.log('Frontends wont be build in case of development version');
+    console.log("Frontends won't be built in development mode");
   }
 
   console.log('Building backends: ' + chalk.bold(backendsToBuild.join(', ')));
